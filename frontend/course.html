@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Course Details</title>
+</head>
+<body>
+
+<h2>Course Details</h2>
+<div id="course"></div>
+
+<script>
+const params = new URLSearchParams(window.location.search);
+const courseId = params.get("id");
+
+fetch(`http://localhost:8000/courses/${courseId}`)
+  .then(res => res.json())
+  .then(c => {
+    document.getElementById("course").innerHTML = `
+      <h3>${c.name}</h3>
+      <p><b>Description:</b> ${c.description}</p>
+      <p><b>Duration:</b> ${c.duration}</p>
+      <p><b>Fee:</b> ₹${c.fee}</p>
+
+      <a href="enroll.html?id=${c.id}">
+        <button>Enroll Now</button>
+      </a>
+    `;
+  });
+</script>
+
+</body>
+</html>
